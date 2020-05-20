@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  mean:
+    build: .
+    links:
+      - mongo
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo
+    hostname: mongo
+    ports:
+    - "27017:27017"

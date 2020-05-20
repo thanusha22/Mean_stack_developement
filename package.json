@@ -1,0 +1,20 @@
+{
+    "name": "128_140",
+    "version": "1.0.0",
+    "description": "submission for CS63",
+    "main": "route_angmongo.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "node route_angmongo.js"
+    },
+    "author": "yashitha",
+    "license": "ISC",
+    "dependencies": {
+      "vcap_services": "*",
+      "angular": "1.7.x",
+      "body-parser": "^1.17.1",
+      "ejs": "^2.5.6",
+      "express": "^4.15.1",
+      "mongodb": "^2.2.25"
+    }
+  }

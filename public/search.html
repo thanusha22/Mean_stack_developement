@@ -1,0 +1,165 @@
+<html> 
+  <head>
+<script src="angular/angular.min.js"> </script>
+<link rel="stylesheet" type="text/css" href="css/style.css"> 
+<link rel="stylesheet" type="text/css" href="css/stylesearch.css">
+
+<script> var myModule = angular.module("myApp",[])  </script>
+<body ng-app="myApp">
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="utf-8">
+      <title>Vimeo</title>
+      <meta content="width=device-width, initial-scale=1.0" name="viewport">
+      <meta content="" name="keywords">
+      <meta content="" name="description">
+    
+      <!-- Favicons -->
+      <link href="img/logo.jpeg" rel="icon">
+      <link href="img/logo.jpeg" rel="logo-icon">
+    
+      <!-- Google Fonts -->
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700" rel="stylesheet">
+    
+      <!-- Bootstrap CSS File -->
+      <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    
+      <!-- Libraries CSS Files -->
+      <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+      <link href="lib/animate/animate.min.css" rel="stylesheet">
+    
+      <!-- Main Stylesheet File -->
+      <link href="css/style.css" rel="stylesheet">
+    
+      <!-- =======================================================
+        Theme Name: Regna
+        Theme URL: https://bootstrapmade.com/regna-bootstrap-onepage-template/
+        Author: BootstrapMade.com
+        License: https://bootstrapmade.com/license/
+      ======================================================= -->
+    </head>
+    <body>
+    <script> var myModule = angular.module("myApp",[])  </script>
+    <body ng-app="myApp">
+        <!--==========================
+      Header
+      ============================-->
+      <header id="header">
+        <div class="container">
+    
+          <div id="logo" class="pull-left">
+            <a href="#hero"><img src="/images/logo.jpeg" alt="" title="" /></img></a>
+            <!-- Uncomment below if you prefer to use a text logo -->
+            <!--<h1><a href="#hero">Regna</a></h1>-->
+          </div>
+    
+          <nav id="nav-menu-container">
+            <ul class="nav-menu">            
+               <li> <a  href="index.html">Home</a></li> 
+               <li><a  href="insert.html">Insert</a></li> 
+               <li><a href="update.html">Update</a></li> 
+               <li><a  href="delete.html">Delete</a></li> 
+              <li><a href="/display">Display</a></li>
+            </ul>
+          </nav><!-- #nav-menu-container -->
+        </div>
+      </header><!-- #header -->
+    
+      <!--==========================
+        Hero Section
+      ============================-->
+      <section id="hero">
+        <div class="hero-container">
+            <div class="wrapper fadeInDown">
+          <div id="formContent">
+            <div class="fadeIn first">
+              <img src="/images/logo.jpeg" width="100px; height=100px" id="icon" alt="User Icon" />
+    <div>
+        <div class="fadeIn second">
+                <p style="color: #2dc997;">Search Movie</p>
+                <p style="color:#2dc997"> Select the field to search by</p>
+                <form ng-controller='appController' ng-submit="send()">
+          <!--send() function from the controller is called on form submission -->
+                <label for="moviefield"></label>
+                <select class="fadeIn third" name="moviefield" id="moviefield" ng-model="data.moviefield" ng-options="x for x in fields">
+                </select>
+            <br><br>
+            <label for="movievalue"> </label>
+                    <input class="fadeIn fourth"type="text" id="movievalue" placeholder ="Value" ng-model="data.movievalue" /> <br /> <br/>        
+            <input class="fadeIn fifth" type="submit" ng-click="Submit">
+        <div ng-if="isEmpty(response.data)"> <br>
+    <ul>
+        <li><span>No Movies</span></li></ul>
+    </div>	
+          <div ng-repeat="y in response.data"> <br>
+    <ul>
+        <li>
+          
+          <span>Movie Name: {{y.moviename}}</span></br>
+        <span>Actor Name: {{y.actorname}}</span></br>
+        <span>Director Name: {{y.dirname}}</span></br>
+        <span>Date of release: {{y.date}}</span></br>
+        <span>Genre: {{y.genre}}</span></br>
+        <span>rating: {{y.rating}}</span></br>
+        </li>
+    </ul>
+    </div>
+        </form> <br>
+     <div>
+	<a href="/display">Display</a><br><br>
+    <a href="index.html">Return to HomePage</a>
+    </div>
+    </div>
+    </div>
+         <script>
+         myModule.controller ("appController",
+            function appController($scope, $http) {
+             $scope.fields = ["Movie Name","Actor Name", "Director Name","Release Date","Genre","Rating"];
+                /*$http directive is used to communicate to the server */
+                $scope.data = {}
+                $scope.response = {}
+            $scope.isEmpty = function(obj){
+              return Object.keys(obj).length == 0;
+            }
+                $scope.send = function () {
+                    /*executed when submit is clicked*/          
+                    //console.log($scope.data.compname);
+                    var posting = $http({
+                /*posting to /process_get  */
+                        method: 'GET',
+                        url: '/search',
+                        params: $scope.data,
+                /*posting to /process_post*/
+                        //method: 'POST',
+                        //url: '/process_post',
+                        //data: $scope.data,
+                        
+                    }).then (function (response) {
+                        /*executed when server responds back*/
+                        //console.log(response);
+                        $scope.response.data = response.data;
+                    },function (error){
+                        //console.log(error);
+                });
+                }
+            });
+        </script> 
+        <main id="main">
+      <!-- JavaScript Libraries -->
+      <script src="lib/jquery/jquery.min.js"></script>
+      <script src="lib/jquery/jquery-migrate.min.js"></script>
+      <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+      <script src="lib/easing/easing.min.js"></script>
+      <script src="lib/wow/wow.min.js"></script>
+      <script src="lib/waypoints/waypoints.min.js"></script>
+      <script src="lib/counterup/counterup.min.js"></script>
+      <script src="lib/superfish/hoverIntent.js"></script>
+      <script src="lib/superfish/superfish.min.js"></script>
+    
+      <!-- Template Main Javascript File -->
+      <script src="js/main.js"></script>
+    </body>
+</body>
+    </html>
+    
